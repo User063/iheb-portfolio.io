@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Création Local Technique - Portfolio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #0a192f; --secondary: #112240; --accent: #64ffda; --text: #8892b0; --text-bright: #ccd6f6; --highlight: #e6f1ff; }
+        body { font-family: 'Poppins', sans-serif; background: var(--primary); color: var(--text); line-height: 1.6; }
+        .back-button { position: absolute; top: 2rem; left: 2rem; z-index: 1000; }
+        .back-button a { display: inline-block; padding: 0.8rem 1.5rem; background: transparent; border: 2px solid var(--accent); color: var(--accent); text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; border-radius: 5px; transition: all 0.3s; }
+        .back-button a:hover { background: var(--accent); color: var(--primary); }
+        .project-header { padding: 8rem 5% 4rem; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); border-bottom: 1px solid rgba(100, 255, 218, 0.1); position: relative; }
+        .project-header h1 { font-size: 3rem; color: var(--highlight); margin-bottom: 1rem; }
+        .project-meta { display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 2rem; }
+        .meta-item { font-family: 'JetBrains Mono', monospace; color: var(--accent); font-size: 0.9rem; }
+        .project-intro { max-width: 800px; font-size: 1.1rem; color: var(--text-bright); }
+        .project-content { max-width: 1200px; margin: 0 auto; padding: 4rem 5%; }
+        .section { margin-bottom: 4rem; }
+        .section h2 { font-size: 2rem; color: var(--accent); margin-bottom: 1.5rem; font-family: 'JetBrains Mono', monospace; }
+        .section p { margin-bottom: 1rem; line-height: 1.8; }
+        .section ul { list-style: none; padding-left: 1rem; }
+        .section li { margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative; }
+        .section li::before { content: '▹'; position: absolute; left: 0; color: var(--accent); }
+        .tech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+        .tech-card { background: var(--secondary); padding: 1.5rem; border-radius: 10px; border-left: 3px solid var(--accent); }
+        .tech-card h3 { color: var(--highlight); font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .documents-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }
+        .document-card { background: var(--secondary); padding: 2rem; border-radius: 10px; border: 1px solid rgba(100, 255, 218, 0.1); text-align: center; transition: all 0.3s; }
+        .document-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(100, 255, 218, 0.2); }
+        .document-icon { font-size: 3rem; margin-bottom: 1rem; }
+        .document-card h3 { color: var(--accent); margin-bottom: 0.5rem; }
+        .document-link { display: inline-block; padding: 0.5rem 1.5rem; background: transparent; border: 1px solid var(--accent); color: var(--accent); text-decoration: none; border-radius: 5px; font-size: 0.85rem; transition: all 0.3s; }
+        .document-link:hover { background: var(--accent); color: var(--primary); }
+    </style>
+</head>
+<body>
+    <header class="project-header">
+        <div class="back-button">
+            <a href="index.html#projets">← Retour au Portfolio</a>
+        </div>
+        <h1>🔧 Création et Équipement d'un Local Technique</h1>
+        <div class="project-meta">
+            <span class="meta-item">📅 2024-2025</span>
+            <span class="meta-item">🏢 Département des Alpes Maritimes</span>
+            <span class="meta-item">💼 Gestion de projet</span>
+        </div>
+        <p class="project-intro">
+            Gestion complète d'un projet de création de local technique, de la réalisation du cahier des charges (réalisé par le Chef de Projet) 
+            à l'installation des équipements réseau, en passant par l'élaboration des devis et la commande du matériel.
+        </p>
+    </header>
+
+    <div class="project-content">
+        <section class="section">
+            <h2>// Contexte et problématique</h2>
+            <p>
+                Le Département des Alpes-Maritimes avait besoin de créer un nouveau local technique pour héberger 
+                les équipements réseau d'un bâtiment nouvellement rénové.
+            </p>
+            <p>
+                L'objectif était de concevoir et mettre en place l'espace 
+                afin d'accueillir les équipements réseau de A à Z et de les 
+                raccorder au coeur de réseau, afin que les utilisateurs puissent
+                être raccordés, et travailler dans les meilleurs conditions.
+            </p>
+        </section>
+
+        <section class="section">
+            <h2>// Missions réalisées</h2>
+            <ul>
+                <li>Analyse des besoins</li>
+                <li>Élaboration des devis auprès de différents fournisseurs</li>
+                <li>Commande du matériel (switches, baies, câblage, etc.)</li>
+                <li>Coordination avec les équipes d'installation (éléctricité, câblage)</li>
+                <li>Configuration des switches</li>
+                <li>Installation de la fibre dans le local technique</li>
+                <li>Installation physique des équipements dans les baies</li>
+                <li>Tests et validation de l'installation</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>// Technologies et outils</h2>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h3>Équipements réseau</h3>
+                    <p>Switches Extreme 5420F, Armoire de brassage, câblage Cat 6A</p>
+                </div>
+                <div class="tech-card">
+                    <h3>Gestion de projet</h3>
+                    <p>Gestion des devis (réalisé par un autre alternant), planning et suivi des travaux</p>
+                </div>
+                <div class="tech-card">
+                    <h3>Infrastructure</h3>
+                    <p>Baies de brassage, panneaux de brassage (rocades), système de câblage</p>
+                </div>
+                <div class="tech-card">
+                    <h3>Configuration</h3>
+                    <p>Configuration des switches à l'aide des templates mis à disposition par les ingénieurs</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>// Résultats obtenus</h2>
+            <ul>
+                <li>Local technique opérationnel et conforme aux normes</li>
+                <li>Infrastructure réseau performante et évolutive</li>
+                <li>Respect du budget et des délais</li>
+                <li>Équipements correctement installés et documentés</li>
+                <li>Documentation complète pour la maintenance (réalisées par les administrateurs réseaux)</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>// Documents du projet</h2>
+            <p>Vous retrouverez ci-dessous les documents en rapport avec le projet</p>
+            <div class="documents-grid">
+                <div class="document-card">
+                    <div class="document-icon">📄</div>
+                    <h3>Images du Local</h3>
+                    <p>Images de la baie de brassages et des switchs</p>
+                    <a href="#" class="document-link">Voir</a>
+                </div>
+               
+                <div class="document-card">
+                    <div class="document-icon">📊</div>
+                    <h3>Documentations</h3>
+                    <p>Template des configurations des switchs</p>
+                    <a href="Images de template.png" class="document-link">Voir</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>// Compétences développées</h2>
+            <ul>
+                <li>Gestion de projet informatique de A à Z</li>
+                <li>Installation d'équipements réseau en baie</li>
+                <li>Configuration de switches et infrastructure réseau</li>
+                <li>Respect des normes et bonnes pratiques</li>
+            </ul>
+        </section>
+    </div>
+</body>
+</html>
