@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Procédures GNEX - Portfolio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #0a192f;
+            --secondary: #112240;
+            --accent: #64ffda;
+            --text: #8892b0;
+            --text-bright: #ccd6f6;
+            --highlight: #e6f1ff;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .back-button {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            z-index: 1000;
+        }
+        
+        .back-button a {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .back-button a:hover {
+            background: var(--accent);
+            color: var(--primary);
+        }
+        
+        .header {
+            padding: 6rem 5% 3rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            color: var(--highlight);
+            margin-bottom: 1rem;
+        }
+        
+        .header p {
+            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 5%;
+        }
+        
+        /* Tabs navigation */
+        .tabs-nav {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        
+        .tab-button {
+            padding: 1rem;
+            background: var(--secondary);
+            border: 2px solid rgba(100, 255, 218, 0.2);
+            border-radius: 8px;
+            color: var(--text-bright);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            text-align: left;
+        }
+        
+        .tab-button:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(100, 255, 218, 0.2);
+        }
+        
+        .tab-button.active {
+            background: var(--accent);
+            color: var(--primary);
+            border-color: var(--accent);
+            font-weight: 600;
+        }
+        
+        .tab-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: rgba(100, 255, 218, 0.2);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+        }
+        
+        .tab-button.active .tab-number {
+            background: var(--primary);
+            color: var(--accent);
+        }
+        
+        /* Tab content */
+        .tab-content {
+            display: none;
+            background: var(--secondary);
+            border-radius: 10px;
+            padding: 2.5rem;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .procedure-header {
+            border-bottom: 2px solid rgba(100, 255, 218, 0.2);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .procedure-header h2 {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .procedure-meta {
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+        
+        .pdf-container {
+            background: var(--primary);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .pdf-embed {
+            width: 100%;
+            height: 800px;
+            border: 2px solid rgba(100, 255, 218, 0.2);
+            border-radius: 8px;
+        }
+        
+        .pdf-placeholder {
+            padding: 3rem;
+            text-align: center;
+            color: var(--text);
+        }
+        
+        .pdf-placeholder h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .download-button {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 1rem 2.5rem;
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .download-button:hover {
+            background: var(--accent);
+            color: var(--primary);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .tabs-nav {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .pdf-embed {
+                height: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="back-button">
+        <a href="projet-gnex.html">← Retour au Projet GNEX</a>
+    </div>
+
+    <header class="header">
+        <h1>📋 Procédures Techniques GNEX</h1>
+        <p>11 procédures complètes pour l'infrastructure réseau</p>
+    </header>
+
+    <div class="container">
+        <!-- Navigation des onglets -->
+        <div class="tabs-nav">
+            <button class="tab-button active" onclick="openTab(1)">
+                <span class="tab-number">01</span> Activation Bureau à distance
+            </button>
+            <button class="tab-button" onclick="openTab(2)">
+                <span class="tab-number">02</span> Configuration d’un utilisateur et mot de passe sur un équipement Cisco
+            </button>
+            <button class="tab-button" onclick="openTab(3)">
+                <span class="tab-number">03</span> Configuration du Routage Dynamique RIP (Routing Information Protocol)
+            </button>
+            <button class="tab-button" onclick="openTab(4)">
+                <span class="tab-number">04</span> Création d'une VM sur Proxmox
+            </button>
+            <button class="tab-button" onclick="openTab(5)">
+                <span class="tab-number">05</span> Création d’une clé bootable Proxmox
+            </button>
+            <button class="tab-button" onclick="openTab(6)">
+                <span class="tab-number">06</span> Réinstaller IOSXE sur un équipement Cisco après un factory-reset
+            </button>
+            <button class="tab-button" onclick="openTab(7)">
+                <span class="tab-number">07</span> Installation du service WEB sur Windows Server 2025
+            </button>
+            <button class="tab-button" onclick="openTab(8)">
+                <span class="tab-number">08</span> Installation pilotes VirtIO
+            </button>
+            <button class="tab-button" onclick="openTab(9)">
+                <span class="tab-number">09</span> Mise à jour d’un switch Catalyst 9300 _ 24
+            </button>
+            <button class="tab-button" onclick="openTab(10)">
+                <span class="tab-number">10</span> Mise à jour d’un switch de niveau 3 Cisco Business 350 series-16P-2G
+            </button>
+            <button class="tab-button" onclick="openTab(11)">
+                <span class="tab-number">11</span> Configuration du protocole SSH sur un switch Cisco de niveau 2
+            </button>
+           
+            
+        </div>
+
+        <!-- Contenu des onglets -->
+        <div id="tab1" class="tab-content active">
+            <div class="procedure-header">
+                <h2>01 - Activation Bureau à distance</h2>
+                <p class="procedure-meta">Procédure pour activer le Bureau à distance sur Windows</p>
+            </div>
+            <div class="pdf-container">
+                <div class="pdf-placeholder">
+                    <h3>📄 Activation Bureau à distance</h3>
+                    <p style="margin-top: 1rem; color: var(--text); font-size: 0.9rem;">
+                        Nom du fichier : <strong>Activation Bureau à distance.pdf</strong>
+                    </p>
+                    <embed src="Activation bureau à distance.docx.pdf" type="application/pdf" class="pdf-embed">
+                    <a href="Activation bureau à distance.docx.pdf" class="download-button" download>📥 Télécharger</a>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div id="tab2" class="tab-content">
+            <div class="procedure-header">
+                <h2>02 - Configuration d’un utilisateur et mot de passe sur un équipement Cisco</h2>
+                <p class="procedure-meta">Configuration d’un utilisateur et mot de passe sur un équipement Cisco</p>
+            </div>
+            <div class="pdf-container">
+                <div class="pdf-placeholder">
+                    <h3>📄 Procédure : Configuration d’un utilisateur et mot de passe sur un équipement Cisco</h3>
+                    <p style="margin-top: 1rem; color: var(--text); font-size: 0.9rem;">
+                        Nom du fichier : <strong>Configuration d’un utilisateur et mot de passe sur un équipement Cisco.pdf</strong>
+                    </p>
+                    <embed src="Configuration d’un utilisateur et mot de passe sur un équipement Cisco.pdf" type="application/pdf" class="pdf-embed">
+                    <a href="Configuration d’un utilisateur et mot de passe sur un équipement Cisco.pdf" class="download-button" download>📥 Télécharger</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="tab3" class="tab-content">
+            <div class="procedure-header">
+                <h2>03 - Configuration du Routage Dynamique RIP</h2>
+                <p class="procedure-meta">Configuration du Routage Dynamique RIP</p>
+            </div>
+            <div class="pdf-container">
+                <div class="pdf-placeholder">
+                    <h3>📄 Procédure : Configuration du Routage Dynamique RIP</h3>
+                    <p style="margin-top: 1rem; color: var(--text); font-size: 0.9rem;">
+                        Nom du fichier : <strong>Configuration du Routage Dynamique RIP.pdf</strong>
+                    </p>
+                    <embed src="Configuration du Routage Dynamique RIP.pdf" type="application/pdf" class="pdf-embed">
+                    <a href="Configuration du Routage Dynamique RIP.pdf" class="download-button" download>📥 Télécharger</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab4" class="tab-content">
+            <div class="procedure-header">
+                <h2>04 - Création d'une VM sur Proxmox</h2>
+                <p class="procedure-meta">Création d'une VM sur Proxmox</p>
+            </div>
+            <div class="pdf-container">
+                <div class="pdf-placeholder">
+                    <h3>📄 Procédure : Création d'une VM sur Proxmox</h3>
+                    <p style="margin-top: 1rem; color: var(--text); font-size: 0.9rem;">
+                        Nom du fichier : <strong>Création d'une VM sur Proxmox.pdf</strong>
+                    </p>
+                    <embed src="Création d'une VM sur Proxmox.pdf" type="application/pdf" class="pdf-embed">
+                    <a href="Création d'une VM sur Proxmox.pdf" class="download-button" download>📥 Télécharger</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab5" class="tab-content">
+            <div class="procedure-header">
+                <h2>05 - Création d’une clé bootable Proxmox</h2>
+                <p class="procedure-meta">Création d’une clé bootable Proxmox</p>
+            </div>
+            <div class="pdf-container">
+                <div class="pdf-placeholder">
+                    <h3>📄 Procédure : Création d’une clé bootable Proxmox</h3>
+                    <p style="margin-top: 1rem; color: var(--text); font-size: 0.9rem;">
+                        Nom du fichier : <strong>Création d’une clé bootable Proxmox.pdf</strong>
+                    </p>
+                    <embed src="Création d’une clé bootable Proxmox.pdf" type="application/pdf" class="pdf-embed">
+                    <a href="Création d’une clé bootable Proxmox.pdf" class="download-button" download>📥 Télécharger</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab6" class="tab-content">
+            <div class="procedure-header">
+                <h2>06 - Réinstaller IOSXE sur un équipement Cisco après un factory-reset</h2>
+                <p class="procedure-meta">Réinstaller IOSXE sur un équipement Cisco après un factory-reset</p>
+            </div>
+            <div class="pdf-container">
+                <div class="pdf-placeholder">
+                    <h3>📄 Procédure : Réinstaller IOSXE sur un équipement Cisco après un factory-reset</h3>
+                    <p style="margin-top: 1rem; color: var(--text); font-size: 0.9rem;">
+                        Nom du fichier : <strong>Réinstaller IOSXE sur un équipement Cisco après un factory-reset.pdf</strong>
+                    </p>
+                    <embed src="Réinstaller IOSXE sur un équipement Cisco après un factory-reset.pdf" type="application/pdf" class="pdf-embed">
+                    <a href="Réinstaller IOSXE sur un équipement Cisco après un factory-reset.pdf" class="download-button" download>📥 Télécharger</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab7" class="tab-content">
+            <div class="procedure-header">
+                <h2>07 - Installation du service WEB sur Windows Server 2025</h2>
+                <p class="procedure-meta">Installation du service WEB sur Windows Server 2025</p>
+            </div>
+            <div class="pdf-container">
+                <div class="pdf-placeholder">
+                    <h3>📄 Procédure : Installation du service WEB sur Windows Server 2025</h3>
+                    <p style="margin-top: 1rem; color: var(--text); font-size: 0.9rem;">
+                        Nom du fichier : <strong>Installation du service WEB sur Windows Server 2025.pdf</strong>
+                    </p>
+                    <embed src="Installation du service WEB sur Windows Server 2025.pdf" type="application/pdf" class="pdf-embed">
+                    <a href="Installation du service WEB sur Windows Server 2025.pdf" class="download-button" download>📥 Télécharger</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab8" class="tab-content">
+            <div class="procedure-header">
+                <h2>08 - Installation pilotes VirtIO</h2>
+                <p class="procedure-meta">Installation pilotes VirtIO</p>
+            </div>
+            <div class="pdf-container">
+                <div class="pdf-placeholder">
+                    <h3>📄 Procédure : Installation pilotes VirtIO</h3>
+                    <p style="margin-top: 1rem; color: var(--text); font-size: 0.9rem;">
+                        Nom du fichier : <strong>Installation pilotes VirtIO.pdf</strong>
+                    </p>
+                    <embed src="Installation pilotes VirtIO.pdf" type="application/pdf" class="pdf-embed">
+                    <a href="Installation pilotes VirtIO.pdf" class="download-button" download>📥 Télécharger</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab9" class="tab-content">
+            <div class="procedure-header">
+                <h2>09 - Mise à jour d’un switch Catalyst 9300 _ 24</h2>
+                <p class="procedure-meta">Mise à jour d’un switch Catalyst 9300 _ 24</p>
+            </div>
+            <div class="pdf-container">
+                <div class="pdf-placeholder">
+                    <h3>📄 Procédure : Mise à jour d’un switch Catalyst 9300 _ 24</h3>
+                    <p style="margin-top: 1rem; color: var(--text); font-size: 0.9rem;">
+                        Nom du fichier : <strong>Mise à jour d’un switch Catalyst 9300 _ 24.pdf</strong>
+                    </p>
+                    <embed src="Mise à jour d’un switch Catalyst 9300 _ 24.pdf" type="application/pdf" class="pdf-embed">
+                    <a href="Mise à jour d’un switch Catalyst 9300 _ 24.pdf" class="download-button" download>📥 Télécharger</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab10" class="tab-content">
+            <div class="procedure-header">
+                <h2>10 - Mise à jour d’un switch de niveau 3 Cisco Business 350 series-16P-2G</h2>
+                <p class="procedure-meta">Mise à jour d’un switch de niveau 3 Cisco Business 350 series-16P-2G</p>
+            </div>
+            <div class="pdf-container">
+                <div class="pdf-placeholder">
+                    <h3>📄 Procédure : Mise à jour d’un switch de niveau 3 Cisco Business 350 series-16P-2G</h3>
+                    <p style="margin-top: 1rem; color: var(--text); font-size: 0.9rem;">
+                        Nom du fichier : <strong>Mise à jour d’un switch de niveau 3 Cisco Business 350 series-16P-2G.pdf</strong>
+                    </p>
+                    <embed src="Mise à jour d’un switch de niveau 3 Cisco Business 350 series-16P-2G.pdf" type="application/pdf" class="pdf-embed">
+                    <a href="Mise à jour d’un switch de niveau 3 Cisco Business 350 series-16P-2G.pdf" class="download-button" download>📥 Télécharger</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab11" class="tab-content">
+            <div class="procedure-header">
+                <h2>11 - Configuration du protocole SSH sur un switch Cisco de niveau 2</h2>
+                <p class="procedure-meta">Configuration du protocole SSH sur un switch Cisco de niveau 2</p>
+            </div>
+            <div class="pdf-container">
+                <div class="pdf-placeholder">
+                    <h3>📄 Procédure : Configuration du protocole SSH sur un switch Cisco de niveau 2</h3>
+                    <p style="margin-top: 1rem; color: var(--text); font-size: 0.9rem;">
+                        Nom du fichier : <strong>Configuration du protocole SSH sur un switch Cisco de niveau 2.pdf</strong>
+                    </p>
+                    <embed src="Configuration du protocole SSH sur un switch Cisco de niveau 2.pdf" type="application/pdf" class="pdf-embed">
+                    <a href="Configuration du protocole SSH sur un switch Cisco de niveau 2.pdf" class="download-button" download>📥 Télécharger</a>
+                </div>
+            </div>
+        </div>
+
+
+
+    <script>
+        function openTab(tabNumber) {
+            // Cacher tous les contenus
+            const allContents = document.querySelectorAll('.tab-content');
+            allContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Désactiver tous les boutons
+            const allButtons = document.querySelectorAll('.tab-button');
+            allButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Activer le contenu sélectionné
+            document.getElementById('tab' + tabNumber).classList.add('active');
+            
+            // Activer le bouton sélectionné
+            event.target.closest('.tab-button').classList.add('active');
+            
+            // Scroll smooth vers le haut du contenu
+            document.querySelector('.tab-content.active').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    </script>
+</body>
+</html>
